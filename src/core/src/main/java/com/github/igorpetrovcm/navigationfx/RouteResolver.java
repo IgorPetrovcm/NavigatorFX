@@ -20,5 +20,5 @@ package com.github.igorpetrovcm.navigationfx;
  * @author petrov
  */
 public interface RouteResolver {
-    RouteRepresentation<?, ?> resolve();
+    RouteRepresentation<? extends Class<?>, ?> resolve();
 }

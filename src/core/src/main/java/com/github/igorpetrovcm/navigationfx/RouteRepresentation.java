@@ -19,7 +19,7 @@ package com.github.igorpetrovcm.navigationfx;
  *
  * @author petrov
  */
-public interface RouteRepresentation<D, C> {
+public interface RouteRepresentation<D extends Class<?>, S> {
     D getDestination();
-    C getCommon();
+    S getSome();
 }

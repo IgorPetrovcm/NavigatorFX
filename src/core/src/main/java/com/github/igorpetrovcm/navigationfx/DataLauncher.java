@@ -20,5 +20,5 @@ package com.github.igorpetrovcm.navigationfx;
  * @author petrov
  */
 public interface DataLauncher<T> {
-    void launch(T commonData);
+    void launch(T someData);
 }
