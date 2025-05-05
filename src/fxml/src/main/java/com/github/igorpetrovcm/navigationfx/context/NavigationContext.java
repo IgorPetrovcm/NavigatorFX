@@ -16,6 +16,6 @@
 package com.github.igorpetrovcm.navigationfx.context;
 
 public interface NavigationContext {
-    void register(Class<?>... views);
-    void register(Class<?> view);
+    StageHolder getStageHolder();
+    void setStageHolder(StageHolder stageHolder);
 }

@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx.context;
+package com.github.igorpetrovcm.navigationfx;
 
-public class FxmlNavigationContext {
+import com.github.igorpetrovcm.navigationfx.context.NavigationContext;
+import com.github.igorpetrovcm.navigationfx.context.StageHolder;
+
+public class FxmlNavigationContext implements NavigationContext {
     private static FxmlNavigationContext instance;
 
     private FxmlNavigationContext() {}

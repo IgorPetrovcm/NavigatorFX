@@ -15,18 +15,21 @@
  */
 package com.github.igorpetrovcm.navigationfx;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.github.igorpetrovcm.navigationfx.context.StageHolder;
 
-/**
- * Points to the field, which is the path to the fxml file.
- */
-@Documented
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface NavigationPath {
-    String path();
+import javafx.stage.Stage;
+
+public class PrimaryStageHolder implements StageHolder{
+    private Stage primaryStage;
+
+    @Override
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    @Override
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+    
 }

@@ -15,53 +15,150 @@
  */
 package com.github.igorpetrovcm.navigationfx;
 
-import java.net.URL;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
-import com.github.igorpetrovcm.navigationfx.context.NavigationContext;
+import com.github.igorpetrovcm.navigationfx.exception.ViewIsNotRegisteredException;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Navigator implements NavigationContext {
-    private LinkedList<FXMLLoader> views = new LinkedList<>();
+public class Navigator {
+    private static LinkedList<FXMLLoader> recentViews = new LinkedList<>();
+    private static List<Class<?>> views = new ArrayList<>();
 
-    public static void movement(RouteResolver resolver) {
-        Parent root = null; 
-
-        RouteRepresentation<?, ?> representation = resolver.resolve();
-        try {
-            FXMLLoader loader = FXMLLoader.load((URL)representation.getDestination());
-
-            root = loader.load();
-            Object controller = loader.getController();
-            if (controller instanceof DataLauncher launcher) {
-                launcher.launch(representation.getCommon());
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Objects.requireNonNull(root);
-
-        
-    }
-
-    @Override
-    public void register(Class<?>... views) {
+    public static void register(Class<?>... views) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
-    public void register(Class<?> view) {
-        final NavigationPath navigationPath = view.getAnnotationsByType(NavigationPath.class)[0];
-        final URL resource = navigationPath.equals(null)
-            ? view.getResource(view.getName() + ".fxml")
-            : view.getResource(navigationPath.path());
+    /**
+     * Defining a simple algorithm for registering a View using a Class. 
+     * This Class must have a field annotated using the NavigationPath, otherwise the navigation mechanism may break.
+     * @param view
+     */
+    public static void register(Class<?> view) {
+        // final NavigationPath navigationPath = view.getAnnotationsByType(NavigationPath.class)[0];
+        // final URL resource = navigationPath.equals(null)
+            // ? view.getResource(view.getName() + ".fxml")
+            // : view.getResource(navigationPath.path());
+        Objects.requireNonNull(view);
+        views.add(view);
+    }
 
-        views.add(new FXMLLoader(resource));
+    
+    /** 
+     * Navigation to a specific View
+     * @param view View class that you need to navigate to
+     * @throws ViewIsNotRegisteredException
+     * @throws IOException
+     */
+    public static void navigate(Class<?> view) throws ViewIsNotRegisteredException, IOException {
+        final Class<?> correspond = isRegistered(view);
+
+        final FXMLLoader loader = loadViewLoader(correspond);
+        updateRecent(loader);
+
+        final Stage stage = FxmlNavigationContext.getInstance().getStageHolder()
+                    .getPrimaryStage();
+        
+        stage.setScene(new Scene(
+            loader.<Parent>load()
+        ));
+    }
+
+    /**
+     * Laconic way to navigate with the ability to transfer some data
+     * @param route Route representation
+     * @throws ViewIsNotRegisteredException
+     * @throws IOException
+     */
+    public static void navigate(RouteRepresentation<? extends Class<?>, ?> route) throws ViewIsNotRegisteredException, IOException {
+        final Class<?> correspond = isRegistered(route.getDestination());
+
+        final FXMLLoader loader = loadViewLoader(correspond);
+        updateRecent(loader);
+
+        final Parent root = loader.load();
+
+        Object controller = loader.getController();
+        if (controller instanceof DataLauncher launcher) {
+            launcher.launch(route.getSome());
+        }
+
+        final Stage stage = FxmlNavigationContext.getInstance().getStageHolder()
+                .getPrimaryStage();
+
+        stage.setScene(new Scene(root));
+    }
+
+    /**
+     * Loads the previous View from the recent list
+     * @param route
+     * @throws IOException
+     */
+    public static void navigatePrev(RouteRepresentation<? extends Class<?>, ?> route) throws IOException {
+        final FXMLLoader loader = recentViews.pollLast();
+
+        final Parent root = loader.load();
+
+        Object controller = loader.getController();
+        if (controller instanceof DataLauncher launcher) {
+            launcher.launch(route.getSome());
+        }
+
+        final Stage stage = FxmlNavigationContext.getInstance().getStageHolder()
+                .getPrimaryStage();
+
+        stage.setScene(new Scene(root));
+    }
+
+    /**
+     * If no Views have been uploaded before, then the most recently uploaded Ones will have the first one.
+     * @param loader
+     */
+    private static void updateRecent(FXMLLoader loader) {
+        if (recentViews.isEmpty()) {
+            recentViews.addFirst(loader);
+        } else {
+            recentViews.add(loader);
+        }
+    }
+
+    private static Class<?> isRegistered(Class<?> view) throws ViewIsNotRegisteredException {
+        return views.stream()
+            .filter(view::equals)
+            .findFirst()
+            .orElseThrow(
+                ViewIsNotRegisteredException::new
+            );
+    }
+
+    /**
+     * Attempt to load fxml from a specific View
+     * @param view
+     * @return
+     */
+    private static FXMLLoader loadViewLoader(Class<?> view) {
+        NavigationPath[] navigationAnnotations = view.getAnnotationsByType(NavigationPath.class);
+        FXMLLoader loader = null;
+
+        try {
+            if (navigationAnnotations == null) {
+                loader = new FXMLLoader(view.getResource(view.getName() + ".fxml"));
+            } else {
+                loader = new FXMLLoader(view.getResource(navigationAnnotations[0].path()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Objects.requireNonNull(loader, "Something went wrong when loading the view resource");
+        return loader;
     }
 }
