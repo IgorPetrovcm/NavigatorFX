@@ -20,4 +20,7 @@ import javafx.stage.Stage;
 public interface StageHolder {
     Stage getPrimaryStage();
     void setPrimaryStage();
+    Stage getCurrentStage();
+    Stage getPrevStage();
+    Stage getNextStage();
 }

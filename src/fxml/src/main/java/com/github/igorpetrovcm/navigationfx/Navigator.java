@@ -16,12 +16,17 @@
 package com.github.igorpetrovcm.navigationfx;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.Objects;
+
+import com.github.igorpetrovcm.navigationfx.context.NavigationContext;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-public class Navigator {
+public class Navigator implements NavigationContext {
+    private LinkedList<FXMLLoader> views = new LinkedList<>();
+
     public static void movement(RouteResolver resolver) {
         Parent root = null; 
 
@@ -42,5 +47,21 @@ public class Navigator {
         Objects.requireNonNull(root);
 
         
+    }
+
+    @Override
+    public void register(Class<?>... views) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void register(Class<?> view) {
+        final NavigationPath navigationPath = view.getAnnotationsByType(NavigationPath.class)[0];
+        final URL resource = navigationPath.equals(null)
+            ? view.getResource(view.getName() + ".fxml")
+            : view.getResource(navigationPath.path());
+
+        views.add(new FXMLLoader(resource));
     }
 }
