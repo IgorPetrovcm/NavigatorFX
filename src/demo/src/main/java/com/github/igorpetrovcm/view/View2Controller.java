@@ -8,7 +8,8 @@ package com.github.igorpetrovcm.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.github.igorpetrovcm.core.navigation.usecase.DataLauncher;
+import com.github.igorpetrovcm.navigationfx.DataLauncher;
+import com.github.igorpetrovcm.navigationfx.NavigationPath;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,6 +19,7 @@ import javafx.scene.control.Label;
  *
  * @author petrov
  */
+@NavigationPath(path = "/fxml/view2.fxml")
 public class View2Controller implements Initializable, DataLauncher<String> {
     private String data;
 

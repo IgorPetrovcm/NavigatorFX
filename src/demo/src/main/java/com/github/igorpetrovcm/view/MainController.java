@@ -11,9 +11,10 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.github.igorpetrovcm.core.navigation.NavigationRules;
-import com.github.igorpetrovcm.core.navigation.context.NavigationContext;
-import com.github.igorpetrovcm.core.navigation.core.RouteRepresentation;
+import com.github.igorpetrovcm.navigationfx.NavigationPath;
+import com.github.igorpetrovcm.navigationfx.NavigationRules;
+import com.github.igorpetrovcm.navigationfx.RouteRepresentation;
+import com.github.igorpetrovcm.navigationfx.RulesHolder;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -25,6 +26,7 @@ import javafx.scene.control.ChoiceBox;
  *
  * @author petrov
  */
+@NavigationPath(path = "/fxml/main.fxml")
 public class MainController implements Initializable {
     private final List<String> states = List.of("Exit", "View2", "View3", "View4");
 
@@ -34,26 +36,20 @@ public class MainController implements Initializable {
 
     @FXML ChoiceBox<String> cbState;
 
-    private final NavigationRules btnView2Navigator = new NavigationRules();
-
-    public MainController() {
-    }
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cbState.setItems(FXCollections.observableArrayList(states));
 
-        NavigationRules rules = new NavigationRules();
+        NavigationRules rules = new RulesHolder();
         rules.addResolver(btnView2, () -> {
             Logger lambdaLogger = Logger.getLogger(this.getClass().getName());
             if (cbState.getValue().equals("Exit")) {
                 return null;
             } else {
                 lambdaLogger.log(Level.INFO, cbState.getValue());
-                return new RouteRepresentation<String>(
-                    cbState.getValue(),
-                    NavigationContext.getInstance().getMapPoints().get("view2")
+                return new RouteRepresentation<Class<?>, String>(
+                    View2Controller.class,
+                    cbState.getValue()
                 );
             }
         });

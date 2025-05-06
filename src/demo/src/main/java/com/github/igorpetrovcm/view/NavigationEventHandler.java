@@ -5,9 +5,9 @@
 
 package com.github.igorpetrovcm.view;
 
-import com.github.igorpetrovcm.core.navigation.NavigationRules;
-import com.github.igorpetrovcm.core.navigation.Navigator;
-import com.github.igorpetrovcm.core.navigation.SimpleRouteResolver;
+import com.github.igorpetrovcm.navigationfx.NavigationRules;
+import com.github.igorpetrovcm.navigationfx.Navigator;
+import com.github.igorpetrovcm.navigationfx.RouteRepresentation;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,7 +27,11 @@ public class NavigationEventHandler implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent t) {
-        Navigator.movement(new SimpleRouteResolver(rules.getResolver(stateObj)));
+        try {
+            Navigator.navigate((RouteRepresentation<?, ?>)rules.getResolver(stateObj).get());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
