@@ -22,6 +22,10 @@ import javafx.stage.Stage;
 public class PrimaryStageHolder implements StageHolder{
     private Stage primaryStage;
 
+    public PrimaryStageHolder(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
     @Override
     public Stage getPrimaryStage() {
         return primaryStage;

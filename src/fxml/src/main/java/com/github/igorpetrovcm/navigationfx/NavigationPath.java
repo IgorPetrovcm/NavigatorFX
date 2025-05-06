@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  * Points to the field, which is the path to the fxml file.
  */
 @Documented
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NavigationPath {
     String path();

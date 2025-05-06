@@ -15,23 +15,21 @@
  */
 package com.github.igorpetrovcm.navigationfx;
 
-/**
- *
- * @author petrov
- */
-public class RouteRepresentation<D extends Class<?>, S> {
-    private D destination;
-    private S some;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.function.Supplier;
 
-    public RouteRepresentation(D destination, S some) {
-        this.destination = destination;
-        this.some = some;
+public class RulesHolder implements NavigationRules<Object>{
+    private Map<Integer, Supplier<RouteRepresentation<?, ?>>> resolvers = new Hashtable<>(); 
+
+    @Override
+    public void addResolver(Object name, Supplier<RouteRepresentation<?, ?>> representation) {
+         resolvers.put(name.hashCode(), representation);
     }
 
-    public D getDestination() {
-        return destination;
+    @Override
+    public Supplier getResolver(Object name) {
+        return resolvers.get(name.hashCode());
     }
-    public S getSome() {
-        return some;
-    }
+     
 }
