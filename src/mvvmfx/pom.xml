@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>navigationfx-parent</artifactId>
+    <groupId>com.github.igorpetrovcm.navigationfx</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <groupId>com.github.igorpetrovcm.navigationfx</groupId>
+  <artifactId>mvvmfx</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <name>mvvmfx</name>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.release>21</maven.compiler.release>
+  </properties>
+
+  <dependencies>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>21.0.7</version>
+    </dependency>
+    <dependency>
+        <groupId>de.saxsys</groupId>
+        <artifactId>mvvmfx</artifactId>
+        <version>1.8.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.github.igorpetrovcm.navigationfx</groupId>
+        <artifactId>core</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>com.mycila</groupId>
+            <artifactId>license-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+  </build>
+</project>

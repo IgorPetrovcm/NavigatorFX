@@ -15,23 +15,9 @@
  */
 package com.github.igorpetrovcm.navigationfx;
 
-/**
- *
- * @author petrov
- */
-public class RouteRepresentation<D, S> {
-    private D destination;
-    private S some;
+import javafx.stage.Stage;
 
-    public RouteRepresentation(D destination, S some) {
-        this.destination = destination;
-        this.some = some;
-    }
-
-    public D getDestination() {
-        return destination;
-    }
-    public S getSome() {
-        return some;
-    }
+public interface StageHolder {
+    Stage getPrimaryStage();
+    void setPrimaryStage(Stage stage);
 }

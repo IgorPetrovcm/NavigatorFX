@@ -13,25 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx;
+package com.github.igorpetrovcm.navigationfx.exception;
 
-/**
- *
- * @author petrov
- */
-public class RouteRepresentation<D, S> {
-    private D destination;
-    private S some;
-
-    public RouteRepresentation(D destination, S some) {
-        this.destination = destination;
-        this.some = some;
+public class ViewIsNotRegisteredException extends Exception{
+    public ViewIsNotRegisteredException() {
+        super("View with this class is not registered");
     }
-
-    public D getDestination() {
-        return destination;
-    }
-    public S getSome() {
-        return some;
+    public ViewIsNotRegisteredException(String message) {
+        super(message);
     }
 }
