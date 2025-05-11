@@ -39,13 +39,11 @@
 
     <module>core</module>
 
-    <module>fxml</module>
-
-    <module>mvvmfx</module>
-
     <module>util</module>
 
     <module>context</module>
+
+    <module>fxml</module>
 
   </modules>
 

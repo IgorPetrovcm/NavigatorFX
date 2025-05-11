@@ -15,11 +15,9 @@
  */
 package com.github.igorpetrovcm.navigationfx;
 
-import com.github.igorpetrovcm.navigationfx.context.StageHolder;
-
 import javafx.stage.Stage;
 
-public class PrimaryStageHolder implements StageHolder{
+public class PrimaryStageHolder implements StageHolder {
     private Stage primaryStage;
 
     public PrimaryStageHolder(Stage primaryStage) {
