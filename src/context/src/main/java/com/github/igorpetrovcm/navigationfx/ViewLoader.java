@@ -15,23 +15,9 @@
  */
 package com.github.igorpetrovcm.navigationfx;
 
-import javafx.stage.Stage;
+import javafx.scene.Parent;
 
-public class PrimaryStageHolder implements StageHolder {
-    private Stage primaryStage;
-
-    public PrimaryStageHolder(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
-    @Override
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
-    @Override
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-    
+public interface ViewLoader {
+    Parent load(Class<?> view);
+    Parent load(RouteRepresentation<Class<?>, ?> representation);
 }

@@ -4,14 +4,14 @@
   <parent>
     <artifactId>navigationfx-parent</artifactId>
     <groupId>com.github.igorpetrovcm.navigationfx</groupId>
-    <version>0.1.0</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <groupId>com.github.igorpetrovcm.navigationfx</groupId>
-  <artifactId>fxml</artifactId>
-  <version>0.1.0</version>
+  <artifactId>mvvmfx</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
 
-  <name>fxml</name>
+  <name>mvvmfx</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>21</maven.compiler.release>
@@ -19,33 +19,28 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.github.igorpetrovcm.navigationfx</groupId>
-      <artifactId>core</artifactId>
-      <version>0.1.0</version>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>21.0.7</version>
     </dependency>
     <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-controls</artifactId>
-      <version>21.0.7</version>
+        <groupId>de.saxsys</groupId>
+        <artifactId>mvvmfx</artifactId>
+        <version>1.8.0</version>
     </dependency>
     <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-fxml</artifactId>
-      <version>21.0.7</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.igorpetrovcm.navigationfx</groupId>
-      <artifactId>context</artifactId>
-      <version>0.1.0</version>
+        <groupId>com.github.igorpetrovcm.navigationfx</groupId>
+        <artifactId>core</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>com.mycila</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-      </plugin>
+        <plugin>
+            <groupId>com.mycila</groupId>
+            <artifactId>license-maven-plugin</artifactId>
+        </plugin>
     </plugins>
   </build>
 </project>

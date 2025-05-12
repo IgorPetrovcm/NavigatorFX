@@ -19,5 +19,5 @@ import java.util.function.Supplier;
 
 public interface NavigationRules<T> {
     void addResolver(T name, Supplier<RouteRepresentation<?, ?>> representation); 
-    Supplier<RouteRepresentation<? extends Class<?>, ?>> getResolver(T name);
+    Supplier<RouteRepresentation<?, ?>> getResolver(T name);
 }

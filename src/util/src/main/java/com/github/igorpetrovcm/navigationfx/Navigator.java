@@ -23,17 +23,28 @@ import java.util.Objects;
 
 import com.github.igorpetrovcm.navigationfx.exception.ViewIsNotRegisteredException;
 
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Navigator {
-    private static LinkedList<FXMLLoader> recentViews = new LinkedList<>();
+    private static NavigationContext context;
+    private static ViewLoader viewLoader;
+
+    private static LinkedList<RouteRepresentation<Class<?>, ?>> recentViews = new LinkedList<>();
     private static List<Class<?>> views = new ArrayList<>();
 
+
+    public static void setViewLoader(ViewLoader contextViewLoader) {
+        viewLoader = contextViewLoader;
+    }
+
+    public static void setNavigationContext(NavigationContext contextNavigationContext) {
+        context = contextNavigationContext;
+    }
+
     public static void register(Class<?>... views) {
-        // TODO Auto-generated method stub
+        // TODO Register an array of Views 
         
     }
 
@@ -43,10 +54,6 @@ public class Navigator {
      * @param view
      */
     public static void register(Class<?> view) {
-        // final NavigationPath navigationPath = view.getAnnotationsByType(NavigationPath.class)[0];
-        // final URL resource = navigationPath.equals(null)
-            // ? view.getResource(view.getName() + ".fxml")
-            // : view.getResource(navigationPath.path());
         Objects.requireNonNull(view);
         views.add(view);
     }
@@ -61,14 +68,13 @@ public class Navigator {
     public static void navigate(Class<?> view) throws ViewIsNotRegisteredException, IOException {
         final Class<?> correspond = isRegistered(view);
 
-        final FXMLLoader loader = loadViewLoader(correspond);
-        updateRecent(loader);
+        final var root = viewLoader.load(correspond);
+        updateRecent(new RouteRepresentation<>(correspond, null));
 
-        final Stage stage = FxmlNavigationContext.getInstance().getStageHolder()
-                    .getPrimaryStage();
+        final Stage stage = context.getStageHolder().getPrimaryStage();
         
         stage.setScene(new Scene(
-            loader.<Parent>load()
+                root   
         ));
     }
 
@@ -78,41 +84,31 @@ public class Navigator {
      * @throws ViewIsNotRegisteredException
      * @throws IOException
      */
-    public static void navigate(RouteRepresentation<? extends Class<?>, ?> route) throws ViewIsNotRegisteredException, IOException {
-        final Class<?> correspond = isRegistered(route.getDestination());
+    public static void navigate(RouteRepresentation<Class<?>, ?> route) throws ViewIsNotRegisteredException, IOException {
+        isRegistered(route.getDestination());
 
-        final FXMLLoader loader = loadViewLoader(correspond);
-        updateRecent(loader);
+        final var root = viewLoader.load(route);
+        updateRecent(route);
 
-        final Parent root = loader.load();
-
-        Object controller = loader.getController();
-        if (controller instanceof DataLauncher launcher) {
-            launcher.launch(route.getSome());
-        }
-
-        final Stage stage = FxmlNavigationContext.getInstance().getStageHolder()
-                .getPrimaryStage();
+        final Stage stage = context.getStageHolder().getPrimaryStage();
 
         stage.setScene(new Scene(root));
     }
 
     /**
      * Loads the previous View from the recent list
-     * @param route
+     * @param route Representation without specifying the Destination, and having Some data
      * @throws IOException
      */
-    public static void navigatePrev(RouteRepresentation<? extends Class<?>, ?> route) throws IOException {
-        final FXMLLoader loader = recentViews.pollLast();
+    public static void navigatePrev(RouteRepresentation<Class<?>, ?> route) throws IOException {
+        recentViews.removeLast();
+        var prevRoute = recentViews.peekLast();
 
-        final Parent root = loader.load();
+        final Parent root = viewLoader.load(
+            new RouteRepresentation<>(prevRoute.getDestination(), route.getSome())
+        );
 
-        Object controller = loader.getController();
-        if (controller instanceof DataLauncher launcher) {
-            launcher.launch(route.getSome());
-        }
-
-        final Stage stage = FxmlNavigationContext.getInstance().getStageHolder()
+        final Stage stage = context.getStageHolder()
                 .getPrimaryStage();
 
         stage.setScene(new Scene(root));
@@ -120,13 +116,13 @@ public class Navigator {
 
     /**
      * If no Views have been uploaded before, then the most recently uploaded Ones will have the first one.
-     * @param loader
+     * @param representation
      */
-    private static void updateRecent(FXMLLoader loader) {
+    private static void updateRecent(RouteRepresentation<Class<?>, ?> representation) {
         if (recentViews.isEmpty()) {
-            recentViews.addFirst(loader);
+            recentViews.addFirst(representation);
         } else {
-            recentViews.add(loader);
+            recentViews.add(representation);
         }
     }
 
@@ -137,28 +133,5 @@ public class Navigator {
             .orElseThrow(
                 ViewIsNotRegisteredException::new
             );
-    }
-
-    /**
-     * Attempt to load fxml from a specific View
-     * @param view
-     * @return
-     */
-    private static FXMLLoader loadViewLoader(Class<?> view) {
-        NavigationPath[] navigationAnnotations = view.getAnnotationsByType(NavigationPath.class);
-        FXMLLoader loader = null;
-
-        try {
-            if (navigationAnnotations == null) {
-                loader = new FXMLLoader(view.getResource(view.getName() + ".fxml"));
-            } else {
-                loader = new FXMLLoader(view.getResource(navigationAnnotations[0].path()));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Objects.requireNonNull(loader, "Something went wrong when loading the view resource");
-        return loader;
     }
 }

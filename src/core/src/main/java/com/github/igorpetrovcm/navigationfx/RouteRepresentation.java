@@ -19,7 +19,19 @@ package com.github.igorpetrovcm.navigationfx;
  *
  * @author petrov
  */
-public interface RouteRepresentation<D extends Class<?>, S> {
-    D getDestination();
-    S getSome();
+public class RouteRepresentation<D, S> {
+    private D destination;
+    private S some;
+
+    public RouteRepresentation(D destination, S some) {
+        this.destination = destination;
+        this.some = some;
+    }
+
+    public D getDestination() {
+        return destination;
+    }
+    public S getSome() {
+        return some;
+    }
 }
