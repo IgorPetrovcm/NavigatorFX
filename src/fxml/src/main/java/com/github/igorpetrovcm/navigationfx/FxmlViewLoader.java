@@ -18,6 +18,8 @@ package com.github.igorpetrovcm.navigationfx;
 import java.io.IOException;
 import java.util.Objects;
 
+import com.github.igorpetrovcm.navigationfx.internal.InfoNavigationBuilder;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -66,20 +68,35 @@ public class FxmlViewLoader implements ViewLoader {
 
     private FXMLLoader uploadResource(Class<?> view) {
         FXMLLoader loader = null;
+        String searchIn = null;
         NavigationPath[] navigationAnnotations = view.getAnnotationsByType(NavigationPath.class);
 
         try {
-            if (navigationAnnotations == null) {
-                loader = new FXMLLoader(view.getResource(view.getName() + ".fxml"));
+            if (navigationAnnotations.length == 0) {
+                searchIn = view.getSimpleName() + ".fxml";
             } else {
-                loader = new FXMLLoader(view.getResource(navigationAnnotations[0].path()));
+                searchIn = navigationAnnotations[0].path();
             }
+
+            isValidPath(view, searchIn);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        loader = new FXMLLoader(view.getResource(searchIn));
 
         Objects.requireNonNull(loader, "Something went wrong when loading the view resource");
         return loader;
     }
     
+    private void isValidPath(Class<?> from, String path) throws IllegalArgumentException {
+        if (from.getResource(path) == null) {
+            throw new IllegalArgumentException(new InfoNavigationBuilder()
+                .searchIn(path)
+                .mainBlock("Path not found")
+                .foundFiles()
+                .build()
+            );
+        }
+    }
 }
