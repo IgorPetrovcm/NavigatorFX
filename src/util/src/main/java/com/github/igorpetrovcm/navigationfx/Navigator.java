@@ -90,13 +90,6 @@ public class Navigator {
         final var root = viewLoader.load(route);
         updateRecent(route);
 
-        // final Parent root = loader.load();
-
-        // Object controller = loader.getController();
-        // if (controller instanceof DataLauncher launcher) {
-            // launcher.launch(route.getSome());
-        // }
-
         final Stage stage = context.getStageHolder().getPrimaryStage();
 
         stage.setScene(new Scene(root));
@@ -114,11 +107,6 @@ public class Navigator {
         final Parent root = viewLoader.load(
             new RouteRepresentation<>(prevRoute.getDestination(), route.getSome())
         );
-
-        // Object controller = loader.getController();
-        // if (controller instanceof DataLauncher launcher) {
-            // launcher.launch(route.getSome());
-        // }
 
         final Stage stage = context.getStageHolder()
                 .getPrimaryStage();
@@ -146,27 +134,4 @@ public class Navigator {
                 ViewIsNotRegisteredException::new
             );
     }
-
-    // /**
-    //  * Attempt to load fxml from a specific View
-    //  * @param view
-    //  * @return
-    //  */
-    // private static FXMLLoader loadViewLoader(Class<?> view) {
-    //     NavigationPath[] navigationAnnotations = view.getAnnotationsByType(NavigationPath.class);
-    //     FXMLLoader loader = null;
-
-    //     try {
-    //         if (navigationAnnotations == null) {
-    //             loader = new FXMLLoader(view.getResource(view.getName() + ".fxml"));
-    //         } else {
-    //             loader = new FXMLLoader(view.getResource(navigationAnnotations[0].path()));
-    //         }
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-
-    //     Objects.requireNonNull(loader, "Something went wrong when loading the view resource");
-    //     return loader;
-    // }
 }

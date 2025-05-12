@@ -4,12 +4,12 @@
   <parent>
     <artifactId>navigationfx-parent</artifactId>
     <groupId>com.github.igorpetrovcm.navigationfx</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
   </parent>
 
   <groupId>com.github.igorpetrovcm.navigationfx</groupId>
   <artifactId>context</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1.0</version>
 
   <name>context</name>
   <properties>
@@ -26,7 +26,7 @@
     <dependency>
         <groupId>com.github.igorpetrovcm.navigationfx</groupId>
         <artifactId>core</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.1.0</version>
     </dependency>
   </dependencies>
 
