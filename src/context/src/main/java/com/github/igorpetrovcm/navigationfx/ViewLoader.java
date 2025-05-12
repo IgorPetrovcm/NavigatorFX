@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx.context;
+package com.github.igorpetrovcm.navigationfx;
 
-import javafx.stage.Stage;
+import javafx.scene.Parent;
 
-public interface StageHolder {
-    Stage getPrimaryStage();
-    void setPrimaryStage(Stage stage);
+public interface ViewLoader {
+    Parent load(Class<?> view);
+    Parent load(RouteRepresentation<Class<?>, ?> representation);
 }

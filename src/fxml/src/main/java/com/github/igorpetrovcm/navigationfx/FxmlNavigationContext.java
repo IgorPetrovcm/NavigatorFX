@@ -15,9 +15,6 @@
  */
 package com.github.igorpetrovcm.navigationfx;
 
-import com.github.igorpetrovcm.navigationfx.context.NavigationContext;
-import com.github.igorpetrovcm.navigationfx.context.StageHolder;
-
 public class FxmlNavigationContext implements NavigationContext {
     private static FxmlNavigationContext instance;
 

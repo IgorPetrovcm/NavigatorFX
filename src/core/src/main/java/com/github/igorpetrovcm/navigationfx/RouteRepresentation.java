@@ -19,7 +19,7 @@ package com.github.igorpetrovcm.navigationfx;
  *
  * @author petrov
  */
-public class RouteRepresentation<D extends Class<?>, S> {
+public class RouteRepresentation<D, S> {
     private D destination;
     private S some;
 
