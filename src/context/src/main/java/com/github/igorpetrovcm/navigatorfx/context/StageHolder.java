@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx;
+package com.github.igorpetrovcm.navigatorfx.context;
 
-public interface NavigationContext {
-    StageHolder getStageHolder();
-    void setStageHolder(StageHolder stageHolder);
+import javafx.stage.Stage;
+
+public interface StageHolder {
+    Stage getPrimaryStage();
+    void setPrimaryStage(Stage stage);
 }

@@ -13,25 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx;
+package com.github.igorpetrovcm.navigatorfx.context;
 
-/**
- *
- * @author petrov
- */
-public class RouteRepresentation<D, S> {
-    private D destination;
-    private S some;
+import com.github.igorpetrovcm.navigatorfx.core.RouteRepresentation;
 
-    public RouteRepresentation(D destination, S some) {
-        this.destination = destination;
-        this.some = some;
-    }
+import javafx.scene.Parent;
 
-    public D getDestination() {
-        return destination;
-    }
-    public S getSome() {
-        return some;
-    }
+public interface ViewLoader {
+    Parent load(Class<?> view);
+    Parent load(RouteRepresentation<Class<?>, ?> representation);
 }
