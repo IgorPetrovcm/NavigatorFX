@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx;
+package com.github.igorpetrovcm.navigatorfx.core;
 
 /**
  *
  * @author petrov
  */
-public interface DataLauncher<T> {
-    void launch(T someData);
+public interface RouteResolver {
+    RouteRepresentation<? extends Class<?>, ?> resolve();
 }

@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx;
+package com.github.igorpetrovcm.navigatorfx.fxml;
+
+import com.github.igorpetrovcm.navigatorfx.context.StageHolder;
 
 import javafx.stage.Stage;
 

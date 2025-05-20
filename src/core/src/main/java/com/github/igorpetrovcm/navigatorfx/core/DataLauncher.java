@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx.exception;
+package com.github.igorpetrovcm.navigatorfx.core;
 
-public class ViewIsNotRegisteredException extends Exception{
-    public ViewIsNotRegisteredException() {
-        super("View with this class is not registered");
-    }
-    public ViewIsNotRegisteredException(String message) {
-        super(message);
-    }
+/**
+ *
+ * @author petrov
+ */
+public interface DataLauncher<T> {
+    void launch(T someData);
 }

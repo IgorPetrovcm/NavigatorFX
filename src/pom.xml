@@ -5,11 +5,11 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.igorpetrovcm.navigationfx</groupId>
+  <groupId>com.github.igorpetrovcm.navigatorfx</groupId>
 
-  <artifactId>navigationfx-parent</artifactId>
+  <artifactId>navigatorfx-parent</artifactId>
 
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 
   <packaging>pom</packaging>
 
@@ -39,9 +39,9 @@
 
     <module>core</module>
 
-    <module>util</module>
-
     <module>context</module>
+
+    <module>util</module>
 
     <module>fxml</module>
 

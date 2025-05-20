@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx;
+package com.github.igorpetrovcm.navigatorfx.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +21,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-import com.github.igorpetrovcm.navigationfx.exception.ViewIsNotRegisteredException;
+import com.github.igorpetrovcm.navigatorfx.context.NavigationContext;
+import com.github.igorpetrovcm.navigatorfx.context.ViewLoader;
+import com.github.igorpetrovcm.navigatorfx.core.RouteRepresentation;
+import com.github.igorpetrovcm.navigatorfx.util.exception.ViewIsNotRegisteredException;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;

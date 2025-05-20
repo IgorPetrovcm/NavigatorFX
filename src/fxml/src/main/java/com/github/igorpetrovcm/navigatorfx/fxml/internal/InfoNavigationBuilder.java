@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx.internal;
+package com.github.igorpetrovcm.navigatorfx.fxml.internal;
 
 import java.io.IOException;
 import java.net.URI;

@@ -13,23 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx;
+package com.github.igorpetrovcm.navigatorfx.context;
 
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.function.Supplier;
-
-public class RulesHolder implements NavigationRules<Object>{
-    private Map<Integer, Supplier<RouteRepresentation<?, ?>>> resolvers = new Hashtable<>(); 
-
-    @Override
-    public void addResolver(Object name, Supplier<RouteRepresentation<?, ?>> representation) {
-         resolvers.put(name.hashCode(), representation);
-    }
-
-    @Override
-    public Supplier getResolver(Object name) {
-        return resolvers.get(name.hashCode());
-    }
-     
+public interface NavigationContext {
+    StageHolder getStageHolder();
+    void setStageHolder(StageHolder stageHolder);
 }

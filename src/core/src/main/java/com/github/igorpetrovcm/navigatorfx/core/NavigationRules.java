@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx;
+package com.github.igorpetrovcm.navigatorfx.core;
 
-import javafx.stage.Stage;
+import java.util.function.Supplier;
 
-public interface StageHolder {
-    Stage getPrimaryStage();
-    void setPrimaryStage(Stage stage);
+public interface NavigationRules<T> {
+    void addResolver(T name, Supplier<RouteRepresentation<?, ?>> representation); 
+    Supplier<RouteRepresentation<?, ?>> getResolver(T name);
 }

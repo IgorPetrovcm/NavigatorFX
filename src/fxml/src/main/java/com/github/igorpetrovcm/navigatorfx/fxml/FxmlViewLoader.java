@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.igorpetrovcm.navigationfx;
+package com.github.igorpetrovcm.navigatorfx.fxml;
 
 import java.io.IOException;
 import java.util.Objects;
 
-import com.github.igorpetrovcm.navigationfx.internal.InfoNavigationBuilder;
+import com.github.igorpetrovcm.navigatorfx.context.ViewLoader;
+import com.github.igorpetrovcm.navigatorfx.core.DataLauncher;
+import com.github.igorpetrovcm.navigatorfx.core.RouteRepresentation;
+import com.github.igorpetrovcm.navigatorfx.fxml.internal.InfoNavigationBuilder;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
